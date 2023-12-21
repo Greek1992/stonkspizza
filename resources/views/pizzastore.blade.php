@@ -13,7 +13,5 @@
         <br>
         <button class="buttons2" onclick="window.location='{{ url('/pizzastore') }}'">Pizza bestellen</button>
     </div>
-    <img class="img1" src="{{ asset('img/pizza.jpg') }}" alt="pizzaria">
-    <img class="img2" src="{{ asset('img/pizza1.jpg') }}" alt="pizzaria">
 </body>
 </html>
