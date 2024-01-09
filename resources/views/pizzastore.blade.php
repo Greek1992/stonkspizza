@@ -6,12 +6,27 @@
 </head>
 <body>
     <header><h1>Stonk's Pizzaria</h1></header>
-    <div class="buttons1">
-        <button class="buttons2">Account maken</button>
-        <br>
-        <button class="buttons2">Inloggen</button>
-        <br>
-        <button class="buttons2" onclick="window.location='{{ url('/pizzastore') }}'">Pizza bestellen</button>
+    <div class="pizzamenu">
+        <table>
+            <?php
+            foreach($pizzaidData as $index => $value)
+            {
+            ?>
+            <tr>
+                <th>
+                    <label>Pizza naam:</label>
+                    {{ $naamData[$index] }}
+                </th>
+                <th>
+                    <label>Pizza prijs:</label>
+                    {{ $prijsData[$index] }}
+                </th>
+                <img src="{{ asset('img/' . $afbData[$index]) }}" alt="gerelateerde pizza">
+            </tr>
+            <?php
+            }
+            ?>
+        </table>
     </div>
 </body>
 </html>

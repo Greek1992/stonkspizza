@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CustomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +20,7 @@ Route::get('/', function ()
     return view('home');
 });
 
-Route::get('/pizzastore', function ()
-{
-    return view('pizzastore');
-});
+Route::get('/pizzastore',[\App\Http\Controllers\CustomController::class, 'index']);
 
 Route::get('/dashboard', function ()
 {
