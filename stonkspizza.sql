@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3309
--- Generation Time: Dec 21, 2023 at 12:06 PM
+-- Generation Time: Jan 10, 2024 at 11:19 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -46,6 +46,18 @@ CREATE TABLE `ingredient` (
   `naam` varchar(255) NOT NULL,
   `prijs` decimal(18,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ingredient`
+--
+
+INSERT INTO `ingredient` (`ingredientid`, `naam`, `prijs`) VALUES
+(1, 'Tomatensaus', 0.40),
+(2, 'Kaas', 0.20),
+(3, 'Champignon', 0.45),
+(4, 'Ui', 0.25),
+(5, 'Tomaat', 0.50),
+(6, 'Shoarma', 0.80);
 
 -- --------------------------------------------------------
 
@@ -107,6 +119,14 @@ CREATE TABLE `pizza` (
   `pizzaingredient` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `pizza`
+--
+
+INSERT INTO `pizza` (`pizzaid`, `naam`, `prijs`, `afb`, `pizzaingredient`) VALUES
+(3, 'Oklohoma beef', 7.99, 'oklohomabeef.png', 1),
+(4, 'Gandolfini special', 9.50, 'gandolfinispecial.png', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -118,6 +138,17 @@ CREATE TABLE `pizzaingredient` (
   `pizzaingredient` bigint(20) UNSIGNED NOT NULL,
   `ingredientid` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pizzaingredient`
+--
+
+INSERT INTO `pizzaingredient` (`pizzaingredientid`, `pizzaingredient`, `ingredientid`) VALUES
+(2, 1, 1),
+(3, 1, 2),
+(4, 1, 6),
+(5, 2, 1),
+(6, 2, 6);
 
 --
 -- Indexes for dumped tables
@@ -186,7 +217,7 @@ ALTER TABLE `bestelling`
 -- AUTO_INCREMENT for table `ingredient`
 --
 ALTER TABLE `ingredient`
-  MODIFY `ingredientid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ingredientid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `klant`
@@ -210,13 +241,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `pizza`
 --
 ALTER TABLE `pizza`
-  MODIFY `pizzaid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `pizzaid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pizzaingredient`
 --
 ALTER TABLE `pizzaingredient`
-  MODIFY `pizzaingredientid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `pizzaingredientid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
