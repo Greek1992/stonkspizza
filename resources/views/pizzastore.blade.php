@@ -37,7 +37,17 @@
     <div class="bestelmenu">
         <h1>Bestel menu</h1>
         <div>
-
+            @if(session('pizzaidData2'))
+                <table>
+                    @foreach(session('pizzaidData2') as $key => $value)
+                        <tr>
+                            <th style="border: 2px solid black">
+                                <label>{{ $value }}</label>
+                            </th>
+                        </tr>
+                    @endforeach
+                </table>
+            @endif
         </div>
         <div>
             <label>Totaal:</label>

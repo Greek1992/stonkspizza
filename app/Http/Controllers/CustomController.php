@@ -40,8 +40,13 @@ class CustomController extends Controller
 
     public function addfood(Request $request)
     {
-        $pizzaidData= $_GET['aidee'];
+        $pizzaidData = $request->query('aidee');
 
-        dd($pizzaidData);
+        $naamData2 = Pizza::where('pizzaid', $pizzaidData)->value('naam');
+        $prijsData2 = Pizza::where('pizzaid', $pizzaidData)->value('prijs');
+        $pizzaingredientData2 = Pizza::where('pizzaid', $pizzaidData)->value('pizzaingredient');
+
+        return redirect()->back()->with(['pizzaidData' => $pizzaid, 'naamData' => $naamData2, 'prijsData' => $prijsData2]);
     }
+
 }
