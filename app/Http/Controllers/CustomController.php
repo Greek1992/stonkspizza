@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pizza;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 //use DB;
 
 class CustomController extends Controller
@@ -12,6 +13,10 @@ class CustomController extends Controller
     public function index()
     {
         $pizzaid = Pizza::all('pizzaid');
+        $pizzaid = $pizzaid->map(function ($pizzaid)
+        {
+            return substr($pizzaid->pizzaid, 0);
+        });
         $naam = Pizza::all('naam');
         $naam = $naam->map(function ($naam)
         {
@@ -31,5 +36,12 @@ class CustomController extends Controller
 
         return view('pizzastore', ['pizzaidData' => $pizzaid, 'naamData' => $naam, 'prijsData' => $prijs,
         'afbData' => $afb, 'pizzaingredientData' => $pizzaingredient]);
+    }
+
+    public function addfood(Request $request)
+    {
+        $pizzaidData= $_GET['aidee'];
+
+        dd($pizzaidData);
     }
 }

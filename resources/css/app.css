@@ -9,11 +9,6 @@ body
     display:grid;
 }
 
-table
-{
-    display: flex;
-}
-
 header
 {
     background-color: coral;
@@ -28,12 +23,6 @@ h1
     text-align: -webkit-center;
 }
 
-th
-{
-    border: 2px solid black;
-    background-color: coral;
-}
-
 .buttons1
 {
     grid-column: 3 / 7;
@@ -44,7 +33,17 @@ th
 
 .pizzamenu
 {
+    grid-column: 1 / 2;
     display: flex;
+    background-color: #ffc73b;
+    text-align: -webkit-center;
+}
+
+.bestelmenu
+{
+    grid-column: 10 / 15;
+    display: flex;
+    flex-direction: column;
     background-color: #ffc73b;
     text-align: -webkit-center;
 }
@@ -60,10 +59,6 @@ th
 .buttons2:hover
 {
     color: white;
-    display: flex;
-    font-family: "Berlin Sans FB", serif;
-    font-size: x-large;
-    background-color: #ffac00;
 }
 
 .ingredientbutton
