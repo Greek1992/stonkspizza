@@ -22,6 +22,7 @@ Route::get('/', function ()
 
 Route::get('/pizzastore',[\App\Http\Controllers\CustomController::class, 'index']);
 Route::get('/addfood',[\App\Http\Controllers\CustomController::class, 'addfood']);
+Route::post('/deletefood',[\App\Http\Controllers\CustomController::class, 'deletefood']);
 
 Route::get('/dashboard', function ()
 {

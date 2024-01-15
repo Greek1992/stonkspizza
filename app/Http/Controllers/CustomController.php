@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Pizza;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use function Laravel\Prompts\alert;
+
 //use DB;
 
 class CustomController extends Controller
@@ -44,9 +46,32 @@ class CustomController extends Controller
 
         $naamData2 = Pizza::where('pizzaid', $pizzaidData)->value('naam');
         $prijsData2 = Pizza::where('pizzaid', $pizzaidData)->value('prijs');
-        $pizzaingredientData2 = Pizza::where('pizzaid', $pizzaidData)->value('pizzaingredient');
 
-        return redirect()->back()->with(['pizzaidData' => $pizzaid, 'naamData' => $naamData2, 'prijsData' => $prijsData2]);
+        $winkelwagenItem = $request->session()->get('winkelwagen', []);
+        $winkelwagenItem[] =
+        [
+            'naam' => $naamData2,
+            'prijs' => $prijsData2,
+        ];
+
+        $request->session()->put('winkelwagen', $winkelwagenItem);
+
+        return redirect()->back()->with(['naamData2' => $naamData2, 'prijsData2' => $prijsData2]);
     }
 
+    public function deletefood(Request $request)
+    {
+        $indexVerwijder = $request->input('index');
+
+        $winkelwagenItem = $request->session()->get('winkelwagen', []);
+
+        if (isset($winkelwagenItem[$indexVerwijder]))
+        {
+            unset($winkelwagenItem[$indexVerwijder]);
+            $winkelwagenItem = array_values($winkelwagenItem);
+            $request->session()->put('winkelwagen', $winkelwagenItem);
+        }
+
+        return redirect()->back();
+    }
 }
