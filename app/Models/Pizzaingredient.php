@@ -33,5 +33,5 @@ class Pizzaingredient extends Model
      *
      * @var array
      */
-    protected $fillable = ['maat','ingredientid'];
+    protected $fillable = ['pizzaingredient','ingredientid'];
 }

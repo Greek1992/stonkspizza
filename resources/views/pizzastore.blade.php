@@ -11,7 +11,7 @@
         foreach($pizzaidData as $index => $value)
         {
         ?>
-        <div style="margin: 20px; display: flex; flex-direction: column">
+        <div style="margin: 20px; display: flex; flex-direction: column; width: 250px">
             <img src="{{ asset('img/' . $afbData[$index]) }}" alt="gerelateerde pizza">
             <th>
                 <label>{{ $naamData[$index] }}</label>
@@ -20,10 +20,7 @@
                 <label>€ {{ $prijsData[$index] }}</label>
             </th>
             <th>
-                <form method="GET" action="ingredientview" class="ingredientbutton">
-                    <input type="hidden" name="aidee" value= {{ $pizzaidData[$index] }}>
-                    <button>Ingredienten</button>
-                </form>
+                <button class="ingredientbutton" onclick="ingredientsFunction('{{ $pizzaidData[$index] }}')">Ingredienten</button>
                 <form method="GET" action="addfood" class="bestelbutton">
                     <input type="hidden" name="aidee" value= {{ $pizzaidData[$index] }}>
                     <button>Voeg toe aan winkelmand</button>
@@ -39,6 +36,7 @@
         <ul>
             @foreach(session('winkelwagen', []) as $item)
                 <li style="display: flex; justify-content: space-around; border: 2px solid black">
+                    <label>{{ $item['aantal'] }}</label>
                     <label>{{ $item['naam'] }}</label>
                     <label>€{{ $item['prijs'] }}</label>
                     <form method="POST" action="{{ url('/deletefood') }}">
@@ -59,4 +57,12 @@
         <button class="bestelbutton">Afhalen</button>
     </div>
 </body>
+
+<script>
+    function ingredientsFunction(value)
+    {
+        alert(value);
+    }
+</script>
+
 </html>

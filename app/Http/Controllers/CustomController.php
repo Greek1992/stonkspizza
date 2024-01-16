@@ -54,6 +54,13 @@ class CustomController extends Controller
             'prijs' => $prijsData2,
         ];
 
+        $aantalData = 0;
+        if ($aantalData == 0)
+        {
+            $aantalData = 1;
+            dd($aantalData);
+        }
+
         $request->session()->put('winkelwagen', $winkelwagenItem);
 
         return redirect()->back()->with(['naamData2' => $naamData2, 'prijsData2' => $prijsData2]);

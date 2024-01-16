@@ -32,5 +32,5 @@ class Pizza extends Model
      *
      * @var array
      */
-    protected $fillable = ['naam','prijs','pizzaingredientid'];
+    protected $fillable = ['naam','prijs','afb','pizzaingredientid'];
 }

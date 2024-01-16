@@ -33,5 +33,5 @@ class Bestelling extends Model
      *
      * @var array
      */
-    protected $fillable = ['datum','klantid','pizzaingredientid'];
+    protected $fillable = ['datum','klantid','pizzaingredientid','maat'];
 }
