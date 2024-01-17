@@ -6,12 +6,13 @@
 </head>
 <body>
     <header><h1>Stonk's Pizzaria</h1></header>
+    <div style="display: flex; justify-content: space-between">
     <div class="pizzamenu">
         <?php
         foreach($pizzaidData as $index => $value)
         {
         ?>
-        <div style="margin: 20px; display: flex; flex-direction: column; width: 250px">
+        <div class="pizzamenuitem">
             <img src="{{ asset('img/' . $afbData[$index]) }}" alt="gerelateerde pizza">
             <th>
                 <label>{{ $naamData[$index] }}</label>
@@ -23,7 +24,7 @@
                 <button class="ingredientbutton" onclick="ingredientsFunction('{{ $pizzaidData[$index] }}')">Ingredienten</button>
                 <form method="GET" action="addfood" class="bestelbutton">
                     <input type="hidden" name="aidee" value= {{ $pizzaidData[$index] }}>
-                    <input type="number" name="quantity" style="color:black">
+                    <input type="number" name="quantity" style="color:black" required>
                     <button>Voeg toe aan winkelmand</button>
                 </form>
             </th>
@@ -36,7 +37,7 @@
         <h1>Bestel menu</h1>
         <ul>
             @foreach(session('winkelwagen', []) as $item)
-                <li style="display: flex; justify-content: space-around; border: 2px solid black">
+                <li class="bestelmenuitem">
                     <label>{{ $item['aantal'] }}</label>
                     <label>{{ $item['naam'] }}</label>
                     <label>€{{ $item['prijs'] }}</label>
@@ -56,6 +57,7 @@
         <h3>Total Price: €{{ array_sum(array_column(session('winkelwagen', []), 'prijs')) }}</h3>
         <button class="ingredientbutton">Bezorgen</button>
         <button class="bestelbutton">Afhalen</button>
+    </div>
     </div>
 </body>
 
