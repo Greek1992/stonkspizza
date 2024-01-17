@@ -23,6 +23,7 @@
                 <button class="ingredientbutton" onclick="ingredientsFunction('{{ $pizzaidData[$index] }}')">Ingredienten</button>
                 <form method="GET" action="addfood" class="bestelbutton">
                     <input type="hidden" name="aidee" value= {{ $pizzaidData[$index] }}>
+                    <input type="number" name="quantity" style="color:black">
                     <button>Voeg toe aan winkelmand</button>
                 </form>
             </th>

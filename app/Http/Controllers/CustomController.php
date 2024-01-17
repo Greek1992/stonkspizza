@@ -43,23 +43,19 @@ class CustomController extends Controller
     public function addfood(Request $request)
     {
         $pizzaidData = $request->query('aidee');
+        $pizzaquantityData = $request->query('quantity');
 
         $naamData2 = Pizza::where('pizzaid', $pizzaidData)->value('naam');
-        $prijsData2 = Pizza::where('pizzaid', $pizzaidData)->value('prijs');
+        $prijsData = Pizza::where('pizzaid', $pizzaidData)->value('prijs');
+        $prijsData2 = $prijsData * $pizzaquantityData;
 
         $winkelwagenItem = $request->session()->get('winkelwagen', []);
         $winkelwagenItem[] =
         [
+            'aantal' => $pizzaquantityData,
             'naam' => $naamData2,
             'prijs' => $prijsData2,
         ];
-
-        $aantalData = 0;
-        if ($aantalData == 0)
-        {
-            $aantalData = 1;
-            dd($aantalData);
-        }
 
         $request->session()->put('winkelwagen', $winkelwagenItem);
 
