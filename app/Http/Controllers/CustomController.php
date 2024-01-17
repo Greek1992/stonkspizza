@@ -44,22 +44,41 @@ class CustomController extends Controller
     {
         $pizzaidData = $request->query('aidee');
         $pizzaquantityData = $request->query('quantity');
+        $pizzasizeData = $request->query('maat');
 
         $naamData2 = Pizza::where('pizzaid', $pizzaidData)->value('naam');
         $prijsData = Pizza::where('pizzaid', $pizzaidData)->value('prijs');
-        $prijsData2 = $prijsData * $pizzaquantityData;
+        $prijsData1 = $prijsData * $pizzasizeData;
+        $prijsData2 = $prijsData1 * $pizzaquantityData;
+        $prijsData3 = round($prijsData2, 2);
+
+        if ($pizzasizeData == 0.8)
+        {
+            $pizzasizeData = "klein";
+        }
+
+        if ($pizzasizeData == 1)
+        {
+            $pizzasizeData = "medium";
+        }
+
+        if ($pizzasizeData == 1.2)
+        {
+            $pizzasizeData = "groot";
+        }
 
         $winkelwagenItem = $request->session()->get('winkelwagen', []);
         $winkelwagenItem[] =
         [
             'aantal' => $pizzaquantityData,
+            'maat' => $pizzasizeData,
             'naam' => $naamData2,
-            'prijs' => $prijsData2,
+            'prijs' => $prijsData3,
         ];
 
         $request->session()->put('winkelwagen', $winkelwagenItem);
 
-        return redirect()->back()->with(['naamData2' => $naamData2, 'prijsData2' => $prijsData2]);
+        return redirect()->back();
     }
 
     public function deletefood(Request $request)

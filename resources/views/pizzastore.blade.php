@@ -24,7 +24,12 @@
                 <button class="ingredientbutton" onclick="ingredientsFunction('{{ $pizzaidData[$index] }}')">Ingredienten</button>
                 <form method="GET" action="addfood" class="bestelbutton">
                     <input type="hidden" name="aidee" value= {{ $pizzaidData[$index] }}>
-                    <input type="number" name="quantity" style="color:black" required>
+                    <input type="number" name="quantity" style="color:black" placeholder="Hoeveel" required>
+                    <select name="maat" style="color:black">
+                        <option value="0.8">Klein</option>
+                        <option value="1">Medium</option>
+                        <option value="1.2">Groot</option>
+                      </select>
                     <button>Voeg toe aan winkelmand</button>
                 </form>
             </th>
@@ -38,7 +43,8 @@
         <ul>
             @foreach(session('winkelwagen', []) as $item)
                 <li class="bestelmenuitem">
-                    <label>{{ $item['aantal'] }}</label>
+                    <label>{{ $item['aantal'] }}X</label>
+                    <label>{{ $item['maat'] }}</label>
                     <label>{{ $item['naam'] }}</label>
                     <label>€{{ $item['prijs'] }}</label>
                     <form method="POST" action="{{ url('/deletefood') }}">
