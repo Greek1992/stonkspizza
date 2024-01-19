@@ -16,6 +16,27 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <!-- Adres -->
+        <div class="mt-4">
+            <x-input-label for="adres" :value="__('adres')" />
+            <x-text-input id="adres" class="block mt-1 w-full" type="text" name="adres" :value="old('adres')" required autocomplete="username" />
+            <x-input-error :messages="$errors->get('adres')" class="mt-2" />
+        </div>
+
+        <!-- Woonplaats -->
+        <div class="mt-4">
+            <x-input-label for="woonplaats" :value="__('woonplaats')" />
+            <x-text-input id="woonplaats" class="block mt-1 w-full" type="text" name="woonplaats" :value="old('woonplaats')" required autocomplete="username" />
+            <x-input-error :messages="$errors->get('woonplaats')" class="mt-2" />
+        </div>
+
+        <!-- Telefoonnummer -->
+        <div class="mt-4">
+            <x-input-label for="telefoonnummer" :value="__('telefoonnummer')" />
+            <x-text-input id="telefoonnummer" class="block mt-1 w-full" type="number" name="telefoonnummer" :value="old('telefoonnummer')" required autocomplete="username" />
+            <x-input-error :messages="$errors->get('telefoonnummer')" class="mt-2" />
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
