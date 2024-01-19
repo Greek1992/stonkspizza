@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3309
--- Generation Time: Jan 10, 2024 at 11:19 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Gegenereerd op: 19 jan 2024 om 10:05
+-- Serverversie: 10.4.28-MariaDB
+-- PHP-versie: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bestelling`
+-- Tabelstructuur voor tabel `bestelling`
 --
 
 CREATE TABLE `bestelling` (
@@ -38,7 +38,7 @@ CREATE TABLE `bestelling` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ingredient`
+-- Tabelstructuur voor tabel `ingredient`
 --
 
 CREATE TABLE `ingredient` (
@@ -48,7 +48,7 @@ CREATE TABLE `ingredient` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `ingredient`
+-- Gegevens worden geëxporteerd voor tabel `ingredient`
 --
 
 INSERT INTO `ingredient` (`ingredientid`, `naam`, `prijs`) VALUES
@@ -57,27 +57,13 @@ INSERT INTO `ingredient` (`ingredientid`, `naam`, `prijs`) VALUES
 (3, 'Champignon', 0.45),
 (4, 'Ui', 0.25),
 (5, 'Tomaat', 0.50),
-(6, 'Shoarma', 0.80);
+(6, 'Shoarma', 0.80),
+(7, 'Macaroni', 1.30);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `klant`
---
-
-CREATE TABLE `klant` (
-  `klantid` bigint(20) UNSIGNED NOT NULL,
-  `naam` varchar(255) NOT NULL,
-  `adres` varchar(255) NOT NULL,
-  `woonplaats` varchar(255) NOT NULL,
-  `telefoonnummer` int(11) NOT NULL,
-  `emailadress` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `migrations`
+-- Tabelstructuur voor tabel `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -89,7 +75,7 @@ CREATE TABLE `migrations` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personal_access_tokens`
+-- Tabelstructuur voor tabel `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -108,7 +94,7 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pizza`
+-- Tabelstructuur voor tabel `pizza`
 --
 
 CREATE TABLE `pizza` (
@@ -120,17 +106,19 @@ CREATE TABLE `pizza` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `pizza`
+-- Gegevens worden geëxporteerd voor tabel `pizza`
 --
 
 INSERT INTO `pizza` (`pizzaid`, `naam`, `prijs`, `afb`, `pizzaingredient`) VALUES
 (3, 'Oklohoma beef', 7.99, 'oklohomabeef.png', 1),
-(4, 'Gandolfini special', 9.50, 'gandolfinispecial.png', 2);
+(4, 'Gandolfini special', 9.50, 'gandolfinispecial.png', 2),
+(5, 'Spicy Buffalo Chicken', 17.99, 'spicybuffalochicken.png', 3),
+(6, 'Mac-n-cheese pizza', 6.99, 'macncheese.png', 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pizzaingredient`
+-- Tabelstructuur voor tabel `pizzaingredient`
 --
 
 CREATE TABLE `pizzaingredient` (
@@ -140,7 +128,7 @@ CREATE TABLE `pizzaingredient` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `pizzaingredient`
+-- Gegevens worden geëxporteerd voor tabel `pizzaingredient`
 --
 
 INSERT INTO `pizzaingredient` (`pizzaingredientid`, `pizzaingredient`, `ingredientid`) VALUES
@@ -148,14 +136,34 @@ INSERT INTO `pizzaingredient` (`pizzaingredientid`, `pizzaingredient`, `ingredie
 (3, 1, 2),
 (4, 1, 6),
 (5, 2, 1),
-(6, 2, 6);
+(6, 2, 6),
+(8, 3, 6),
+(9, 3, 4),
+(10, 4, 2),
+(11, 4, 7);
+
+-- --------------------------------------------------------
 
 --
--- Indexes for dumped tables
+-- Tabelstructuur voor tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `adres` varchar(255) NOT NULL,
+  `woonplaats` varchar(255) NOT NULL,
+  `telefoonnummer` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Indexen voor geëxporteerde tabellen
 --
 
 --
--- Indexes for table `bestelling`
+-- Indexen voor tabel `bestelling`
 --
 ALTER TABLE `bestelling`
   ADD PRIMARY KEY (`bestellingid`),
@@ -163,25 +171,19 @@ ALTER TABLE `bestelling`
   ADD KEY `bestelling_pizzaingredientid_index` (`pizzaingredient`);
 
 --
--- Indexes for table `ingredient`
+-- Indexen voor tabel `ingredient`
 --
 ALTER TABLE `ingredient`
   ADD PRIMARY KEY (`ingredientid`);
 
 --
--- Indexes for table `klant`
---
-ALTER TABLE `klant`
-  ADD PRIMARY KEY (`klantid`);
-
---
--- Indexes for table `migrations`
+-- Indexen voor tabel `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `personal_access_tokens`
+-- Indexen voor tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -189,14 +191,14 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `pizza`
+-- Indexen voor tabel `pizza`
 --
 ALTER TABLE `pizza`
   ADD PRIMARY KEY (`pizzaid`),
   ADD KEY `pizza_pizzaingredientid_index` (`pizzaingredient`);
 
 --
--- Indexes for table `pizzaingredient`
+-- Indexen voor tabel `pizzaingredient`
 --
 ALTER TABLE `pizzaingredient`
   ADD PRIMARY KEY (`pizzaingredientid`),
@@ -204,63 +206,70 @@ ALTER TABLE `pizzaingredient`
   ADD KEY `pizzaingredient` (`pizzaingredient`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexen voor tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
 --
--- AUTO_INCREMENT for table `bestelling`
+-- AUTO_INCREMENT voor een tabel `bestelling`
 --
 ALTER TABLE `bestelling`
   MODIFY `bestellingid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ingredient`
+-- AUTO_INCREMENT voor een tabel `ingredient`
 --
 ALTER TABLE `ingredient`
-  MODIFY `ingredientid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ingredientid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `klant`
---
-ALTER TABLE `klant`
-  MODIFY `klantid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT voor een tabel `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `personal_access_tokens`
+-- AUTO_INCREMENT voor een tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pizza`
+-- AUTO_INCREMENT voor een tabel `pizza`
 --
 ALTER TABLE `pizza`
-  MODIFY `pizzaid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pizzaid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `pizzaingredient`
+-- AUTO_INCREMENT voor een tabel `pizzaingredient`
 --
 ALTER TABLE `pizzaingredient`
-  MODIFY `pizzaingredientid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pizzaingredientid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT voor een tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Beperkingen voor geëxporteerde tabellen
 --
 
 --
--- Constraints for table `bestelling`
+-- Beperkingen voor tabel `bestelling`
 --
 ALTER TABLE `bestelling`
-  ADD CONSTRAINT `bestelling_klantid_foreign` FOREIGN KEY (`klantid`) REFERENCES `klant` (`klantid`);
+  ADD CONSTRAINT `bestelling_ibfk_1` FOREIGN KEY (`klantid`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `pizzaingredient`
+-- Beperkingen voor tabel `pizzaingredient`
 --
 ALTER TABLE `pizzaingredient`
   ADD CONSTRAINT `pizzaingredient_ibfk_1` FOREIGN KEY (`pizzaingredient`) REFERENCES `pizza` (`pizzaingredient`),
