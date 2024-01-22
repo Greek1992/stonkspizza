@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3309
--- Gegenereerd op: 19 jan 2024 om 10:05
+-- Gegenereerd op: 22 jan 2024 om 13:11
 -- Serverversie: 10.4.28-MariaDB
 -- PHP-versie: 8.2.4
 
@@ -59,6 +59,27 @@ INSERT INTO `ingredient` (`ingredientid`, `naam`, `prijs`) VALUES
 (5, 'Tomaat', 0.50),
 (6, 'Shoarma', 0.80),
 (7, 'Macaroni', 1.30);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `maat`
+--
+
+CREATE TABLE `maat` (
+  `maatid` int(11) NOT NULL,
+  `maat` varchar(255) NOT NULL,
+  `prijsindex` decimal(18,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `maat`
+--
+
+INSERT INTO `maat` (`maatid`, `maat`, `prijsindex`) VALUES
+(1, 'klein', 0.80),
+(2, 'medium', 1.00),
+(3, 'groot', 1.20);
 
 -- --------------------------------------------------------
 
@@ -159,6 +180,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Gegevens worden geëxporteerd voor tabel `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `adres`, `woonplaats`, `telefoonnummer`) VALUES
+(4, 'butterbeanman', 'butterbeanman@gmail.com', '$2y$12$rH4umr8LIM/eHG7SJQVM5.Coma9hYFm4YExGtD3pKqoilKMKVXE4.', 'butterbeanman', 'butterbeanman', 619721297);
+
+--
 -- Indexen voor geëxporteerde tabellen
 --
 
@@ -175,6 +203,12 @@ ALTER TABLE `bestelling`
 --
 ALTER TABLE `ingredient`
   ADD PRIMARY KEY (`ingredientid`);
+
+--
+-- Indexen voor tabel `maat`
+--
+ALTER TABLE `maat`
+  ADD PRIMARY KEY (`maatid`);
 
 --
 -- Indexen voor tabel `migrations`
@@ -229,6 +263,12 @@ ALTER TABLE `ingredient`
   MODIFY `ingredientid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT voor een tabel `maat`
+--
+ALTER TABLE `maat`
+  MODIFY `maatid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT voor een tabel `migrations`
 --
 ALTER TABLE `migrations`
@@ -256,7 +296,7 @@ ALTER TABLE `pizzaingredient`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
