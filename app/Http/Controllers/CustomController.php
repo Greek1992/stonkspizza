@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Maat;
 use App\Models\Pizza;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -36,8 +37,20 @@ class CustomController extends Controller
         });
         $pizzaingredient = Pizza::all('pizzaingredient');
 
+        $maat = Maat::all('maat');
+        $maat = $maat->map(function ($maat)
+        {
+            return substr($maat->maat, 0);
+        });
+        $prijsindex = Maat::all('prijsindex');
+        $prijsindex = $prijsindex->map(function ($prijsindex)
+        {
+            return substr($prijsindex->prijsindex, 0);
+        });
+        // dd($maat, $prijsindex);
+
         return view('pizzastore', ['pizzaidData' => $pizzaid, 'naamData' => $naam, 'prijsData' => $prijs,
-        'afbData' => $afb, 'pizzaingredientData' => $pizzaingredient]);
+        'afbData' => $afb, 'pizzaingredientData' => $pizzaingredient, 'pizzamaatData' => $maat, 'pizzamaatindexData' => $prijsindex]);
     }
 
     public function addfood(Request $request)

@@ -30,9 +30,14 @@
                     <input type="hidden" name="aidee" value= {{ $pizzaidData[$index] }}>
                     <input type="number" name="quantity" style="color:black" placeholder="Hoeveel" required>
                     <select name="maat" style="color:black">
-                        <option value="0.8">Klein</option>
-                        <option value="1">Medium</option>
-                        <option value="1.2">Groot</option>
+                        <?php
+                        foreach ($pizzamaatData as $index => $value)
+                        {
+                        ?>
+                            <option value="{{ $pizzamaatindexData[$index] }}">{{ $pizzamaatData[$index] }}</option>
+                        <?php
+                        }
+                        ?>
                       </select>
                     <button>Voeg toe aan winkelmand</button>
                 </form>

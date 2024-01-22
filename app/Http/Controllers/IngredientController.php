@@ -11,7 +11,8 @@ class IngredientController extends Controller
 {
     public function index()
     {
-        $pizzaidData= $_GET['aidee'];
+        // $pizzaidData= $_GET['aidee'];
+        $pizzaidData= "3";
         $ingredients = Ingredient::select('i.naam as ingredient_name', 'i.prijs as ingredient_price')
         ->join('pizzaingredient as pi', 'pi.ingredientid', '=', 'ingredient.ingredientid')
         ->join('pizza as p', 'p.pizzaingredient', '=', 'pi.pizzaingredient')
