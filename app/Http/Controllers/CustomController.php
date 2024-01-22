@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Maat;
+use App\Models\Ingredient;
 use App\Models\Pizza;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -47,7 +48,6 @@ class CustomController extends Controller
         {
             return substr($prijsindex->prijsindex, 0);
         });
-        // dd($maat, $prijsindex);
 
         return view('pizzastore', ['pizzaidData' => $pizzaid, 'naamData' => $naam, 'prijsData' => $prijs,
         'afbData' => $afb, 'pizzaingredientData' => $pizzaingredient, 'pizzamaatData' => $maat, 'pizzamaatindexData' => $prijsindex]);
@@ -69,12 +69,10 @@ class CustomController extends Controller
         {
             $pizzasizeData = "klein";
         }
-
         if ($pizzasizeData == 1)
         {
             $pizzasizeData = "medium";
         }
-
         if ($pizzasizeData == 1.2)
         {
             $pizzasizeData = "groot";
@@ -108,5 +106,27 @@ class CustomController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function inspectpizza(Request $request)
+    {
+        $inspectpizza = $request->input('aidee');
+
+        $ingredienten = Ingredient::all('naam');
+        $ingredienten = $ingredienten->map(function ($ingredienten)
+        {
+            return substr($ingredienten->naam, 0);
+        });
+
+        $ingredients = Ingredient::select('i.naam as ingredient_name', 'i.prijs as ingredient_price')
+            ->join('pizzaingredient as pi', 'pi.ingredientid', '=', 'ingredient.ingredientid')
+            ->join('pizza as p', 'p.pizzaingredient', '=', 'pi.pizzaingredient')
+            ->join('ingredient as i', 'pi.ingredientid', '=', 'i.ingredientid')
+            ->where('p.pizzaid', $inspectpizza)
+            ->get();
+
+        $usedIngredientsArray = $ingredients->pluck('ingredient_name')->toArray();
+
+        return view('ingredients', ['allingredientsData' => $ingredienten, 'usedingredientsData' => $usedIngredientsArray]);
     }
 }

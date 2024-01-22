@@ -21,7 +21,6 @@
                 <label>€ {{ $prijsData[$index] }}</label>
             </th>
             <th>
-                {{-- <button class="ingredientbutton" onclick="ingredientsFunction('{{ $pizzaidData[$index] }}')">Ingredienten</button> --}}
                 <form method="GET" action="ingredients" class="ingredientbutton">
                     <input type="hidden" name="aidee" value= {{ $pizzaidData[$index] }}>
                     <button>Ingredienten</button>
