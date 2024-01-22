@@ -21,7 +21,11 @@
                 <label>€ {{ $prijsData[$index] }}</label>
             </th>
             <th>
-                <button class="ingredientbutton" onclick="ingredientsFunction('{{ $pizzaidData[$index] }}')">Ingredienten</button>
+                {{-- <button class="ingredientbutton" onclick="ingredientsFunction('{{ $pizzaidData[$index] }}')">Ingredienten</button> --}}
+                <form method="GET" action="ingredients" class="ingredientbutton">
+                    <input type="hidden" name="aidee" value= {{ $pizzaidData[$index] }}>
+                    <button>Ingredienten</button>
+                </form>
                 <form method="GET" action="addfood" class="bestelbutton">
                     <input type="hidden" name="aidee" value= {{ $pizzaidData[$index] }}>
                     <input type="number" name="quantity" style="color:black" placeholder="Hoeveel" required>
