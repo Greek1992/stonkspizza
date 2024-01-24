@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.panel
+{
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+}
+
 body
 {
     background-color: goldenrod;
@@ -61,7 +69,6 @@ h1
     justify-content: space-around;
     border: 2px solid black
 }
-
 
 .buttons2
 {

@@ -16,41 +16,42 @@ class CustomController extends Controller
 {
     public function index()
     {
-        $pizzaid = Pizza::all('pizzaid');
-        $pizzaid = $pizzaid->map(function ($pizzaid)
-        {
-            return substr($pizzaid->pizzaid, 0);
-        });
-        $naam = Pizza::all('naam');
-        $naam = $naam->map(function ($naam)
-        {
-            return substr($naam->naam, 0);
-        });
-        $prijs = Pizza::all('prijs');
-        $prijs = $prijs->map(function ($prijs)
-        {
-            return substr($prijs->prijs, 0);
-        });
-        $afb = Pizza::all('afb');
-        $afb = $afb->map(function ($afb)
-        {
-            return substr($afb->afb, 0);
-        });
-        $pizzaingredient = Pizza::all('pizzaingredient');
+        $pizzas = Pizza::all();
+        $usedIngredientsArray = [];
 
-        $maat = Maat::all('maat');
-        $maat = $maat->map(function ($maat)
+        $pizzaid = $pizzas->pluck('pizzaid')->map(fn ($value) => substr($value, 0));
+        $naam = $pizzas->pluck('naam')->map(fn ($value) => substr($value, 0));
+        $prijs = $pizzas->pluck('prijs')->map(fn ($value) => substr($value, 0));
+        $afb = $pizzas->pluck('afb')->map(fn ($value) => substr($value, 0));
+        $pizzaingredient = $pizzas->pluck('pizzaingredient');
+
+        $maat = Maat::all();
+        $maat1 = $maat->pluck('maat')->map(fn ($value) => substr($value, 0));
+
+        $maat = Maat::all();
+        $prijsindex = $maat->pluck('prijsindex')->map(fn ($value) => substr($value, 0));
+
+        $ingredienten = Ingredient::all('naam');
+        $ingredienten = $ingredienten->map(function ($ingredienten)
         {
-            return substr($maat->maat, 0);
+            return substr($ingredienten->naam, 0);
         });
-        $prijsindex = Maat::all('prijsindex');
-        $prijsindex = $prijsindex->map(function ($prijsindex)
+
+        foreach ($pizzas as $pizza)
         {
-            return substr($prijsindex->prijsindex, 0);
-        });
+            $ingredients = Ingredient::select('i.naam as ingredient_name', 'i.prijs as ingredient_price')
+                ->join('pizzaingredient as pi', 'pi.ingredientid', '=', 'ingredient.ingredientid')
+                ->join('pizza as p', 'p.pizzaingredient', '=', 'pi.pizzaingredient')
+                ->join('ingredient as i', 'pi.ingredientid', '=', 'i.ingredientid')
+                ->where('p.pizzaid', $pizza->pizzaid)
+                ->get();
+
+            $usedIngredientsArrays[$pizza->pizzaid] = $ingredients->pluck('ingredient_name')->toArray();
+        }
 
         return view('pizzastore', ['pizzaidData' => $pizzaid, 'naamData' => $naam, 'prijsData' => $prijs,
-        'afbData' => $afb, 'pizzaingredientData' => $pizzaingredient, 'pizzamaatData' => $maat, 'pizzamaatindexData' => $prijsindex]);
+        'afbData' => $afb, 'pizzaingredientData' => $pizzaingredient, 'pizzamaatData' => $maat1, 'pizzamaatindexData' => $prijsindex,
+        'allingredientsData' => $ingredienten, 'usedingredientsData' => $usedIngredientsArrays]);
     }
 
     public function addfood(Request $request)
