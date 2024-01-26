@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3309
--- Gegenereerd op: 22 jan 2024 om 13:11
+-- Gegenereerd op: 26 jan 2024 om 10:13
 -- Serverversie: 10.4.28-MariaDB
 -- PHP-versie: 8.2.4
 
@@ -184,7 +184,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `adres`, `woonplaats`, `telefoonnummer`) VALUES
-(4, 'butterbeanman', 'butterbeanman@gmail.com', '$2y$12$rH4umr8LIM/eHG7SJQVM5.Coma9hYFm4YExGtD3pKqoilKMKVXE4.', 'butterbeanman', 'butterbeanman', 619721297);
+(5, 'adel taibi', 'adeltaibi@gmail.com', '$2y$12$kkJ6XjI5vsxzZqPpjdVGSusPhxfVuSfP3yoE9gFBwFGK.MhK3nASy', 'kasperlaan 22', 'groningen', 666666666);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -296,7 +296,7 @@ ALTER TABLE `pizzaingredient`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Beperkingen voor geëxporteerde tabellen

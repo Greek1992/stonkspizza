@@ -21,17 +21,16 @@
                 <th>
                     <label>€ {{ $prijsData[$pizzaidindex] }}</label>
                 </th>
-                <div>
+                <div class="ingredientbutton">
                     <?php
                     foreach ($allingredientsData as $ingredientindex => $value)
                     {
-
                         $ingredient = $allingredientsData[$ingredientindex];
                         $isChecked = in_array($ingredient, $usedingredientsData[$niks]);
                     ?>
                         <div>
                             <label>
-                                <input type="checkbox" <?php echo $isChecked ? 'checked' : ''; ?>>
+                                <input type="checkbox" disabled="disabled" <?php echo $isChecked ? 'checked' : ''; ?>>
                                 <?php echo $ingredient; ?>
                             </label>
                         </div>
@@ -39,9 +38,9 @@
                     }
                     ?>
                 </div>
-                {{-- <th>
+                <th>
                     <form method="GET" action="addfood" class="bestelbutton">
-                        <input type="hidden" name="aidee" value= {{ $pizzaidData[$index] }}>
+                        <input type="hidden" name="aidee" value= {{ $pizzaidData[$pizzaidindex] }}>
                         <input type="number" name="quantity" style="color:black" placeholder="Hoeveel" required>
                         <select name="maat" style="color:black">
                             <?php
@@ -55,21 +54,21 @@
                         </select>
                         <button>Voeg toe aan winkelmand</button>
                     </form>
-                </th> --}}
+                </th>
             </div>
             <?php
             }
             ?>
         </div>
-        <div class="bestelmenu">
+        <div class="wagenmenu">
             <h1>Bestel menu</h1>
             <ul>
                 @foreach(session('winkelwagen', []) as $item)
-                    <li class="bestelmenuitem">
-                        <label>{{ $item['aantal'] }}X</label>
-                        <label>{{ $item['maat'] }}</label>
-                        <label>{{ $item['naam'] }}</label>
-                        <label>€{{ $item['prijs'] }}</label>
+                    <li class="wagenitem">
+                        <label class="wagenitemitem">{{ $item['aantal'] }}X</label>
+                        <label class="wagenitemitem">{{ $item['maat'] }}</label>
+                        <label class="wagenitemitem">{{ $item['naam'] }}</label>
+                        <label class="wagenitemitem">€{{ $item['prijs'] }}</label>
                         <form method="POST" action="{{ url('/deletefood') }}">
                             @csrf
                             <input type="hidden" name="index" value="{{ $loop->index }}">
@@ -84,36 +83,20 @@
                 @endforeach
             </ul>
             <h3>Total Price: €{{ array_sum(array_column(session('winkelwagen', []), 'prijs')) }}</h3>
-            <button class="ingredientbutton">Bezorgen</button>
-            <button class="bestelbutton">Afhalen</button>
+            <form method="GET" action="bestel" class="bezorgbutton">
+                <input type="hidden" name="aidee">
+                </select>
+                <button>Bezorgen</button>
+            </form>
+            <button class="bestelbutton" onclick="myFunction()" id="demo">Afhalen</button>
         </div>
     </div>
 
-    <button class="accordion">Waar neemt het evenement plaats?</button>
-    <div class="panel">
-        <p>Het neemt plaats in Utrecht tussen 15 en 30 oktober</p>
-    </div>
-</body>
-
-<script>
-    var acc = document.getElementsByClassName("accordion");
-    var i;
-
-    for (i = 0; i < acc.length; i++)
-    {
-        acc[i].addEventListener("click", function()
+    <script>
+        function myFunction()
         {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block")
-            {
-            panel.style.display = "none";
-            }
-            else
-            {
-            panel.style.display = "block";
-            }
-        });
-    }
-</script>
+          alert("COMING SOON!");
+        }
+    </script>
+</body>
 </html>

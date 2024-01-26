@@ -49,9 +49,16 @@ class CustomController extends Controller
             $usedIngredientsArrays[$pizza->pizzaid] = $ingredients->pluck('ingredient_name')->toArray();
         }
 
-        return view('pizzastore', ['pizzaidData' => $pizzaid, 'naamData' => $naam, 'prijsData' => $prijs,
-        'afbData' => $afb, 'pizzaingredientData' => $pizzaingredient, 'pizzamaatData' => $maat1, 'pizzamaatindexData' => $prijsindex,
-        'allingredientsData' => $ingredienten, 'usedingredientsData' => $usedIngredientsArrays]);
+        return view('pizzastore',
+        ['pizzaidData' => $pizzaid,
+        'naamData' => $naam,
+        'prijsData' => $prijs,
+        'afbData' => $afb,
+        'pizzaingredientData' => $pizzaingredient,
+        'pizzamaatData' => $maat1,
+        'pizzamaatindexData' => $prijsindex,
+        'allingredientsData' => $ingredienten,
+        'usedingredientsData' => $usedIngredientsArrays]);
     }
 
     public function addfood(Request $request)
@@ -128,6 +135,28 @@ class CustomController extends Controller
 
         $usedIngredientsArray = $ingredients->pluck('ingredient_name')->toArray();
 
-        return view('ingredients', ['allingredientsData' => $ingredienten, 'usedingredientsData' => $usedIngredientsArray]);
+        return view('ingredients',
+        ['allingredientsData' => $ingredienten,
+        'usedingredientsData' => $usedIngredientsArray]);
+    }
+
+    public function bestelpizza(Request $request)
+    {
+        $winkelwagenItem = $request->session()->get('winkelwagen', []);
+
+        foreach ($winkelwagenItem as $item)
+        {
+            $separateItem =
+            [
+                'aantal' => $item['aantal'],
+                'maat' => $item['maat'],
+                'naam' => $item['naam'],
+                'prijs' => $item['prijs'],
+            ];
+
+            $request->session()->push('bestelwagen', $separateItem);
+        }
+
+        return view('bestel');
     }
 }

@@ -12,6 +12,8 @@
         <br>
         <button class="buttons2"><a href="{{ route('login') }}">Inloggen</a></button>
         <br>
+        <button class="buttons2" onclick="window.location='{{ url('/bestel') }}'">Mijn bestellingen</button>
+        <br>
         <button class="buttons2" onclick="window.location='{{ url('/pizzastore') }}'">Pizza bestellen</button>
     </div>
     <br>

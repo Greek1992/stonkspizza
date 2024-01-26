@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomController;
-use App\Http\Controllers\IngredientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +25,8 @@ Route::get('/addfood',[\App\Http\Controllers\CustomController::class, 'addfood']
 Route::post('/deletefood',[\App\Http\Controllers\CustomController::class, 'deletefood']);
 
 Route::get('/ingredients',[\App\Http\Controllers\CustomController::class, 'inspectpizza']);
+
+Route::get('/bestel',[\App\Http\Controllers\CustomController::class, 'bestelpizza'])->middleware('auth');
 
 Route::get('/dashboard', function ()
 {
