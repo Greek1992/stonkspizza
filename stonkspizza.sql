@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3309
--- Gegenereerd op: 26 jan 2024 om 10:13
+-- Gegenereerd op: 29 jan 2024 om 14:27
 -- Serverversie: 10.4.28-MariaDB
 -- PHP-versie: 8.2.4
 
@@ -32,8 +32,18 @@ CREATE TABLE `bestelling` (
   `datum` date NOT NULL,
   `klantid` bigint(20) UNSIGNED NOT NULL,
   `pizzaingredient` bigint(20) UNSIGNED NOT NULL,
-  `maat` text NOT NULL
+  `maat` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `bestelling`
+--
+
+INSERT INTO `bestelling` (`bestellingid`, `datum`, `klantid`, `pizzaingredient`, `maat`, `status`) VALUES
+(40, '2024-01-29', 5, 5, 'klein', 'besteld'),
+(41, '2024-01-29', 5, 6, 'klein', 'besteld'),
+(42, '2024-01-29', 6, 7, 'groot', 'besteld');
 
 -- --------------------------------------------------------
 
@@ -161,7 +171,15 @@ INSERT INTO `pizzaingredient` (`pizzaingredientid`, `pizzaingredient`, `ingredie
 (8, 3, 6),
 (9, 3, 4),
 (10, 4, 2),
-(11, 4, 7);
+(49, 4, 7),
+(75, 5, 6),
+(76, 5, 4),
+(77, 6, 1),
+(78, 6, 6),
+(79, 7, 2),
+(80, 7, 7),
+(81, 7, 2),
+(82, 7, 7);
 
 -- --------------------------------------------------------
 
@@ -184,7 +202,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `adres`, `woonplaats`, `telefoonnummer`) VALUES
-(5, 'adel taibi', 'adeltaibi@gmail.com', '$2y$12$kkJ6XjI5vsxzZqPpjdVGSusPhxfVuSfP3yoE9gFBwFGK.MhK3nASy', 'kasperlaan 22', 'groningen', 666666666);
+(5, 'adel taibi', 'adeltaibi@gmail.com', '$2y$12$kkJ6XjI5vsxzZqPpjdVGSusPhxfVuSfP3yoE9gFBwFGK.MhK3nASy', 'kasperlaan 22', 'groningen', 666666666),
+(6, 'beer', 'beer@gmail.com', '$2y$12$iz4KhHmqFvl7L5N8v9ImWu/aXmfdMqqQv/fLuQu/qxXy0lHtmRpDu', 'beerlaan 12', 'beerde', 6056565);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -254,7 +273,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor een tabel `bestelling`
 --
 ALTER TABLE `bestelling`
-  MODIFY `bestellingid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `bestellingid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT voor een tabel `ingredient`
@@ -290,31 +309,13 @@ ALTER TABLE `pizza`
 -- AUTO_INCREMENT voor een tabel `pizzaingredient`
 --
 ALTER TABLE `pizzaingredient`
-  MODIFY `pizzaingredientid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `pizzaingredientid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- Beperkingen voor geëxporteerde tabellen
---
-
---
--- Beperkingen voor tabel `bestelling`
---
-ALTER TABLE `bestelling`
-  ADD CONSTRAINT `bestelling_ibfk_1` FOREIGN KEY (`klantid`) REFERENCES `users` (`id`);
-
---
--- Beperkingen voor tabel `pizzaingredient`
---
-ALTER TABLE `pizzaingredient`
-  ADD CONSTRAINT `pizzaingredient_ibfk_1` FOREIGN KEY (`pizzaingredient`) REFERENCES `pizza` (`pizzaingredient`),
-  ADD CONSTRAINT `pizzaingredient_ibfk_2` FOREIGN KEY (`pizzaingredient`) REFERENCES `bestelling` (`pizzaingredient`),
-  ADD CONSTRAINT `pizzaingredient_ingredientid_foreign` FOREIGN KEY (`ingredientid`) REFERENCES `ingredient` (`ingredientid`);
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
