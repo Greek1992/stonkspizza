@@ -19,6 +19,14 @@
     <br>
     <div style="display: flex; justify-content: space-evenly">
         <img src="{{ asset('img/pizza.jpg') }}" alt="pizzaria">
+        @auth
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="bestelbutton">
+                {{ __('Log Out') }}
+            </button>
+        </form>
+        @endauth
         <img src="{{ asset('img/pizza1.jpg') }}" alt="pizzaria">
     </div>
 </body>

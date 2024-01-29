@@ -57,7 +57,7 @@ h1
 .bestelmenu
 {
     width: 100%;
-    display: flex;
+    /* display: flex; */
     flex-direction: row;
     background-color: #ffc73b;
     text-align: -webkit-center;

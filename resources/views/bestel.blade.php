@@ -12,19 +12,32 @@
     </div>
     <br>
     <div class="bestelmenu">
-        @foreach(session('bestelwagen', []) as $item)
-        <ul>
-            <button class="accordion"><p>{{ $item['naam'] }}</p></button>
-            <div class="panel">
-                <li class="bestelmenuitem">
-                    <label class="bestelmenuitemitem">{{ $item['aantal'] }}X</label>
-                    <label class="bestelmenuitemitem">{{ $item['maat'] }}</label>
-                    <label class="bestelmenuitemitem">{{ $item['naam'] }}</label>
-                    <label class="bestelmenuitemitem">€{{ $item['prijs'] }}</label>
-                </li>
-            </div>
-        </ul>
-        @endforeach
+        <?php
+        foreach($bestellingidData as $bestellingindex => $value)
+        {
+        ?>
+            <ul>
+                <button class="accordion"><p>Bestelling {{ $bestellingidData[$bestellingindex] }} | Status: {{ $statusData[$bestellingindex] }}</p></button>
+                <div class="panel">
+                    <li class="bestelmenuitem">
+                        <label class="wagenitemitem">Bestelling id: {{ $bestellingidData[$bestellingindex] }}</label>
+                        <label class="wagenitemitem">Datum: {{ $datumData[$bestellingindex] }}</label>
+                        <label class="wagenitemitem">Klant id: {{ $klantidData[$bestellingindex] }}</label>
+                            <?php
+                            foreach($pizzaingredientidData as $pizzaingredientidindex => $value)
+                            {
+                            ?>
+                                <label class="wagenitemitem">Ingredient: {{ $pizzaingredientidData[$pizzaingredientidindex] }}</label>
+                            <?php
+                            }
+                            ?>
+                        <label class="wagenitemitem">Maat: {{ $maatData[$bestellingindex] }}</label>
+                    </li>
+                </div>
+            </ul>
+        <?php
+        }
+        ?>
     </div>
 </body>
 

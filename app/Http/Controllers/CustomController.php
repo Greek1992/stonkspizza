@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Maat;
+use App\Models\Bestelling;
 use App\Models\Ingredient;
 use App\Models\Pizza;
 use Illuminate\Support\Facades\DB;
@@ -142,21 +144,30 @@ class CustomController extends Controller
 
     public function bestelpizza(Request $request)
     {
-        $winkelwagenItem = $request->session()->get('winkelwagen', []);
+        $userId = Auth::id();
+        $bestellingen = Bestelling::where('klantid', $userId)->get();
 
-        foreach ($winkelwagenItem as $item)
-        {
-            $separateItem =
-            [
-                'aantal' => $item['aantal'],
-                'maat' => $item['maat'],
-                'naam' => $item['naam'],
-                'prijs' => $item['prijs'],
-            ];
+        $bestellingid = $bestellingen->pluck('bestellingid')->map(fn ($value) => substr($value, 0));
+        $datum = $bestellingen->pluck('datum')->map(fn ($value) => substr($value, 0));
+        $klantid = $bestellingen->pluck('klantid')->map(fn ($value) => substr($value, 0));
+        $maat = $bestellingen->pluck('maat');
+        $pizzaingredientid = $bestellingen->pluck('pizzaingredient')->map(fn ($value) => substr($value, 0));
+        $status = $bestellingen->pluck('status')->map(fn ($value) => substr($value, 0));
 
-            $request->session()->push('bestelwagen', $separateItem);
-        }
+        $ingredients = Bestelling::select('i.naam as ingredient_name', 'i.prijs as ingredient_price')
+        ->join('pizzaingredient as pi', 'pi.pizzaingredient', '=', 'bestelling.pizzaingredient')
+        ->join('ingredient as i', 'pi.ingredientid', '=', 'i.ingredientid')
+        ->where('bestelling.bestellingid', "4")
+        ->get();
 
-        return view('bestel');
+        $ingredients1 = $ingredients->pluck('ingredient_name')->toArray();
+
+        return view('bestel',
+        ['bestellingidData' => $bestellingid,
+        'datumData' => $datum,
+        'klantidData' => $klantid,
+        'pizzaingredientidData' => $ingredients1,
+        'maatData' => $maat,
+        'statusData' => $status]);
     }
 }
