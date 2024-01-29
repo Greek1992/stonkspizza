@@ -6,6 +6,16 @@
 </head>
 <body>
     <header><h1>Stonk's Pizzaria</h1></header>
+    <nav style="float: left;">
+        <ul id="ulmenu">
+            <li>
+                <a class="bezorgbutton" onclick="window.location='{{ url('/') }}'">Home pagina</a>
+            </li>
+            <li>
+                <a class="bestelbutton" onclick="window.location='{{ url('/bestelfinal') }}'">Mijn bestellingen</a>
+            </li>
+        </ul>
+    </nav>
     <div style="display: flex; justify-content: space-between">
         <div class="pizzamenu">
             <?php
@@ -84,10 +94,17 @@
             </ul>
             <h3>Total Price: €{{ array_sum(array_column(session('winkelwagen', []), 'prijs')) }}</h3>
             <form method="GET" action="bestel" class="bezorgbutton">
-                <input type="hidden" name="aidee">
-                </select>
+                @csrf
+                @foreach(session('winkelwagen', []) as $index => $item)
+                    <input type="hidden" name="items[{{ $index }}][aantal]" value="{{ $item['aantal'] }}">
+                    <input type="hidden" name="items[{{ $index }}][maat]" value="{{ $item['maat'] }}">
+                    <input type="hidden" name="items[{{ $index }}][naam]" value="{{ $item['naam'] }}">
+                    <input type="hidden" name="items[{{ $index }}][prijs]" value="{{ $item['prijs'] }}">
+                @endforeach
+                <input type="hidden" name="aidee" value="winkelwagen">
                 <button>Bezorgen</button>
             </form>
+
             <button class="bestelbutton" onclick="myFunction()" id="demo">Afhalen</button>
         </div>
     </div>

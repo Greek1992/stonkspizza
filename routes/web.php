@@ -27,11 +27,13 @@ Route::post('/deletefood',[\App\Http\Controllers\CustomController::class, 'delet
 Route::get('/ingredients',[\App\Http\Controllers\CustomController::class, 'inspectpizza']);
 
 Route::get('/bestel',[\App\Http\Controllers\CustomController::class, 'bestelpizza'])->middleware('auth');
+Route::get('/bestelfinal',[\App\Http\Controllers\CustomController::class, 'bestelfinal'])->middleware('auth');
+Route::get('/deleteorder',[\App\Http\Controllers\CustomController::class, 'deleteorder'])->middleware('auth');
 
 Route::get('/dashboard', function ()
 {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('home');
+})->middleware(['auth', 'verified'])->name('home');
 
 Route::middleware('auth')->group(function ()
 {

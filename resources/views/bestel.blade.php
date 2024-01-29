@@ -5,6 +5,16 @@
     @vite('resources/css/app.css')
 </head>
 <body style="background-color: goldenrod; margin: 2%; display: flex; flex-direction: column;">
+    <nav style="float: left;">
+        <ul id="ulmenu">
+            <li>
+                <a class="bezorgbutton" onclick="window.location='{{ url('/') }}'">Home pagina</a>
+            </li>
+            <li>
+                <a class="bestelbutton" onclick="window.location='{{ url('/pizzastore') }}'">Pizza pagina</a>
+            </li>
+        </ul>
+    </nav>
     <header><h1>Stonk's Pizzaria</h1></header>
     <br>
     <div class="buttons1">
@@ -20,18 +30,24 @@
                 <button class="accordion"><p>Bestelling {{ $bestellingidData[$bestellingindex] }} | Status: {{ $statusData[$bestellingindex] }}</p></button>
                 <div class="panel">
                     <li class="bestelmenuitem">
-                        <label class="wagenitemitem">Bestelling id: {{ $bestellingidData[$bestellingindex] }}</label>
                         <label class="wagenitemitem">Datum: {{ $datumData[$bestellingindex] }}</label>
                         <label class="wagenitemitem">Klant id: {{ $klantidData[$bestellingindex] }}</label>
-                            <?php
-                            foreach($pizzaingredientidData as $pizzaingredientidindex => $value)
+                            {{-- <?php
+                            $uniqueIngredients = array_unique($pizzaingredientidData);
+                            foreach($uniqueIngredients  as $pizzaingredientidindex => $value)
                             {
                             ?>
                                 <label class="wagenitemitem">Ingredient: {{ $pizzaingredientidData[$pizzaingredientidindex] }}</label>
                             <?php
                             }
-                            ?>
+                            ?> --}}
                         <label class="wagenitemitem">Maat: {{ $maatData[$bestellingindex] }}</label>
+                        <form method="GET" action="{{ url('/deleteorder') }}">
+                            @csrf
+                            <input type="hidden" name="bestellingid" value="{{ $bestellingidData[$bestellingindex] }}">
+                            <input type="hidden" name="pizzaingredientid" value="{{ $pizzaingredientidData[$bestellingindex] }}">
+                            <button type="submit" style="color: red; font-size: x-large; background-color: coral">Bestelling annuleren</button>
+                        </form>
                     </li>
                 </div>
             </ul>

@@ -8,11 +8,11 @@
     <header><h1>Stonk's Pizzaria</h1></header>
     <br>
     <div class="buttons1">
-        <button class="buttons2"><a href="{{ route('register') }}">Account maken</a></button>
+        <button class="buttons2" onclick="window.location='{{ url('/register') }}'">Account maken</button>
         <br>
-        <button class="buttons2"><a href="{{ route('login') }}">Inloggen</a></button>
+        <button class="buttons2" onclick="window.location='{{ url('/login') }}'">Inloggen</button>
         <br>
-        <button class="buttons2" onclick="window.location='{{ url('/bestel') }}'">Mijn bestellingen</button>
+        <button class="buttons2" onclick="window.location='{{ url('/bestelfinal') }}'">Mijn bestellingen</button>
         <br>
         <button class="buttons2" onclick="window.location='{{ url('/pizzastore') }}'">Pizza bestellen</button>
     </div>
